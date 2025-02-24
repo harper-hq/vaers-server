@@ -1,0 +1,142 @@
+[
+  {
+    "column_name": "id",
+    "data_type": "uuid"
+  },
+  {
+    "column_name": "vaers_id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "recvdate",
+    "data_type": "date"
+  },
+  {
+    "column_name": "state",
+    "data_type": "character varying"
+  },
+  {
+    "column_name": "age_yrs",
+    "data_type": "numeric"
+  },
+  {
+    "column_name": "cage_yr",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "cage_mo",
+    "data_type": "numeric"
+  },
+  {
+    "column_name": "sex",
+    "data_type": "character"
+  },
+  {
+    "column_name": "rpt_date",
+    "data_type": "date"
+  },
+  {
+    "column_name": "symptom_text",
+    "data_type": "text"
+  },
+  {
+    "column_name": "died",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "datedied",
+    "data_type": "date"
+  },
+  {
+    "column_name": "l_threat",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "er_visit",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "hospital",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "hospdays",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "x_stay",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "disable",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "recovd",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "vax_date",
+    "data_type": "date"
+  },
+  {
+    "column_name": "onset_date",
+    "data_type": "date"
+  },
+  {
+    "column_name": "numdays",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "lab_data",
+    "data_type": "text"
+  },
+  {
+    "column_name": "v_adminby",
+    "data_type": "character varying"
+  },
+  {
+    "column_name": "v_fundby",
+    "data_type": "character varying"
+  },
+  {
+    "column_name": "other_meds",
+    "data_type": "text"
+  },
+  {
+    "column_name": "cur_ill",
+    "data_type": "text"
+  },
+  {
+    "column_name": "history",
+    "data_type": "text"
+  },
+  {
+    "column_name": "prior_vax",
+    "data_type": "text"
+  },
+  {
+    "column_name": "splttype",
+    "data_type": "character varying"
+  },
+  {
+    "column_name": "todays_date",
+    "data_type": "date"
+  },
+  {
+    "column_name": "birth_defect",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "ofc_visit",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "er_ed_visit",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "allergies",
+    "data_type": "text"
+  }
+]
