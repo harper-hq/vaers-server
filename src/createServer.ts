@@ -4,6 +4,8 @@ import cors from "cors";
 import express, { Express, Request, Response } from "express";
 
 import vaersRoutes from "./api/vaers/vaers.routes";
+import vaccineCategoryRoutes from "./api/vaccineCategory/vaccineCategory.routes";
+import uniqueVaccineTypeRoutes from "./api/uniqueVaccineTypes/uniqueVaccineTypes.routes";
 
 declare global {
   namespace Express {
@@ -42,6 +44,8 @@ export function createApp() {
   );
 
   app.use("/vaers", vaersRoutes);
+  app.use("/vaccine-category", vaccineCategoryRoutes);
+  app.use("/unique-vaccine-types", uniqueVaccineTypeRoutes);
 
   app.use("/", (req: Request, res: Response) => {
     res.send("It's alive! I'm the Harper AI server. Let's gooooo!");
