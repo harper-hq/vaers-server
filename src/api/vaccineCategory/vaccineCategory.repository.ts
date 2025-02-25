@@ -8,7 +8,8 @@ export const getVaccineCategories = async () => {
   try {
     const { data, error } = await supabase
       .from(SupabaseTables.vaccineCategory)
-      .select("*, unique_vaccine_types(*)");
+      .select("*, unique_vaccine_types(*)")
+      .order("total_count", { ascending: false });
     if (error) {
       throw error;
     }
