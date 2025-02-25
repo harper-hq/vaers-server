@@ -6,4 +6,5 @@ export enum SupabaseTables {
   rawVaccineTypes = "raw_vaccine_types",
   rawVaccineCategories = "raw_vaccine_categories",
   rawSymptoms = "raw_symptoms",
+  rawVaccineData = "raw_vaccine_data",
 }
