@@ -1,6 +1,9 @@
 import { createVaersSupabaseClient } from "../../supabase/supabase.service";
 import { SupabaseTables } from "../../supabase/supabase.tables";
-import { UniqueVaccineTypesRow } from "./uniqueVaccineTypes.type";
+import {
+  UniqueVaccineTypesRow,
+  UniqueVaccineTypesRowWithCategory,
+} from "./uniqueVaccineTypes.type";
 
 const supabase = createVaersSupabaseClient();
 
@@ -59,11 +62,11 @@ export const getVaccineTypesByVcId = async (
 
 export const getVaccineTypeByType = async (
   type: string
-): Promise<UniqueVaccineTypesRow> => {
+): Promise<UniqueVaccineTypesRowWithCategory> => {
   try {
     const { data, error } = await supabase
       .from(SupabaseTables.uniqueVaccineTypes)
-      .select("*")
+      .select("*, vaccine_category(*)")
       .eq("type", type);
     if (error) {
       throw error;
@@ -71,6 +74,24 @@ export const getVaccineTypeByType = async (
     return data[0];
   } catch (error) {
     console.error("Error getting vaccine type by type:", error);
+    throw error;
+  }
+};
+
+export const getVaccineTypeById = async (
+  id: string
+): Promise<UniqueVaccineTypesRowWithCategory> => {
+  try {
+    const { data, error } = await supabase
+      .from(SupabaseTables.uniqueVaccineTypes)
+      .select("*, vaccine_category(*)")
+      .eq("id", id);
+    if (error) {
+      throw error;
+    }
+    return data[0];
+  } catch (error) {
+    console.error("Error getting vaccine type by id:", error);
     throw error;
   }
 };

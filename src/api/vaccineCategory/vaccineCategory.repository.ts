@@ -1,10 +1,15 @@
 import { createVaersSupabaseClient } from "../../supabase/supabase.service";
 import { SupabaseTables } from "../../supabase/supabase.tables";
-import { VaccineCategoryRow } from "./vaccineCategory.type";
+import {
+  VaccineCategoryRow,
+  VaccineCategoryRowWithUniqueVaccineTypes,
+} from "./vaccineCategory.type";
 
 const supabase = createVaersSupabaseClient();
 
-export const getVaccineCategories = async () => {
+export const getVaccineCategories = async (): Promise<
+  VaccineCategoryRowWithUniqueVaccineTypes[]
+> => {
   try {
     const { data, error } = await supabase
       .from(SupabaseTables.vaccineCategory)

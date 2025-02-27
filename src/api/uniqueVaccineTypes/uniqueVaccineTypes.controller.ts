@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import {
   getUniqueVaccineTypes,
   getVaccineCategoryBySlug,
+  getVaccineTypeById,
   getVaccineTypeByType,
   getVaccineTypesByVcId,
 } from "./uniqueVaccineTypes.repository";
@@ -55,8 +56,6 @@ export const getTypeByType = async (req: Request, res: Response) => {
   try {
     const { type } = req.params;
 
-    console.log("type", type);
-
     const vaccineType = await getVaccineTypeByType(type);
 
     if (!vaccineType) {
@@ -73,5 +72,26 @@ export const getTypeByType = async (req: Request, res: Response) => {
     res.status(500).json({
       error: "Internal server error",
     });
+  }
+  ``;
+};
+
+export const getVaccineById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const vaccineType = await getVaccineTypeById(id);
+
+    if (!vaccineType) {
+      return res.status(404).json({
+        error: "Vaccine type not found",
+      });
+    }
+
+    res.status(200).json({
+      data: vaccineType,
+    });
+  } catch (error) {
+    console.error("Error getting vaccine type by id:", error);
   }
 };
