@@ -44,40 +44,61 @@ export function makeUrlCompatible(fileName: string): string {
 export function getTopOfCsv(csv: string, numOfLines: number): string {
   if (!csv) return "";
 
-  // This regex matches newlines outside of double quotes
-  const regex = /(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))/g;
-
-  // Using an array to collect lines
-  let match;
-  const lines = [];
-  let currentLine = [];
-
-  while ((match = regex.exec(csv)) !== null) {
-    let matchedValue = match[0];
-    if (matchedValue.match(/\n/)) {
-      // If we encounter a newline, push the current line to lines array and reset it
-      lines.push(currentLine.join(", "));
-      currentLine = [];
-    } else {
-      // Remove leading commas for fields except the first
-      if (matchedValue.startsWith(",")) {
-        matchedValue = matchedValue.substring(1);
+  // Split the CSV into lines first
+  const lines = csv.split('\n');
+  
+  // Process each line to handle quoted values correctly
+  const processedLines = lines.map(line => {
+    const values = [];
+    let currentValue = '';
+    let insideQuotes = false;
+    let originalQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      
+      if (char === '"') {
+        if (insideQuotes && line[i + 1] === '"') {
+          // Handle escaped quotes
+          currentValue += '"';
+          i++; // Skip next quote
+        } else {
+          // Toggle quote state
+          insideQuotes = !insideQuotes;
+          if (currentValue === '') {
+            originalQuotes = true;
+          }
+        }
+      } else if (char === ',' && !insideQuotes) {
+        // End of field
+        if (originalQuotes || currentValue.includes(',')) {
+          values.push(`"${currentValue}"`);
+        } else {
+          values.push(currentValue);
+        }
+        currentValue = '';
+        originalQuotes = false;
+      } else {
+        currentValue += char;
       }
-      currentLine.push(matchedValue);
     }
-  }
-
-  // Don't forget to push the last line if it wasn't empty
-  if (currentLine.length > 0) {
-    lines.push(currentLine.join(""));
-  }
+    
+    // Add the last value
+    if (originalQuotes || currentValue.includes(',')) {
+      values.push(`"${currentValue}"`);
+    } else {
+      values.push(currentValue);
+    }
+    
+    return values.join(', ');
+  });
 
   // Map each line to include its line number (1-based index)
-  const topLinesWithNumbers = lines
+  const topLinesWithNumbers = processedLines
     .slice(0, numOfLines)
     .map((line, index) => `${index + 1}: ${line}`);
 
-  return topLinesWithNumbers.join("\n");
+  return topLinesWithNumbers.join('\n');
 }
 
 export function escapeCsvValue(value: string | number): string {
